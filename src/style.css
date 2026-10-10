@@ -1490,96 +1490,132 @@ dialog::backdrop {
     }
 }
 
+/* Keep the mobile shell within the visible browser area; long content scrolls inside. */
 @media(max-width:640px) {
+    :root {
+        font-size: 13px;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%
+    }
+
+    body {
+        height: 100svh;
+        height: 100dvh;
+        min-height: 0;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+    }
+
     .site-header {
-        padding: 20px 22px;
-        flex-wrap: wrap;
-        gap: 12px
+        width: 100%;
+        padding: 8px 16px;
+        gap: 10px
     }
 
     .brand {
-        font-size: 17px
+        gap: 9px;
+        font-size: 15px
+    }
+
+    .brand small {
+        font-size: 12px;
+        margin-top: 1px;
+        letter-spacing: .18em
     }
 
     .seal {
-        width: 32px;
-        height: 37px;
-        font-size: 14px
+        width: 28px;
+        height: 34px;
+        font-size: 12px
     }
 
     .header-note {
         font-size: 12px;
-        letter-spacing: .05em
+        letter-spacing: 0
     }
 
     .site-footer {
-        padding: 20px 22px;
+        width: 100%;
+        padding: 7px 12px;
         font-size: 12px;
-        gap: 15px
-    }
-
-    .site-footer span:first-child {
-        max-width: 60%
+        letter-spacing: 0;
+        gap: 8px
     }
 
     main {
-        min-height: calc(100svh - 145px)
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        min-height: 0;
+        overflow: auto;
+        overscroll-behavior: contain
     }
 
     .home-page {
-        padding: 28px 25px 20px;
-        grid-template-columns: 1fr;
+        min-height: 100%;
+        padding: 22px 24px 12px;
+        grid-template-columns: minmax(0, 1fr);
+        align-content: center;
+        gap: 16px;
         position: relative
     }
 
     .hero-copy {
-        padding-top: 10px
+        padding-top: 0
+    }
+
+    .hero-copy::before {
+        inset: -12px
     }
 
     .hero-copy h1 {
-        font-size: clamp(48px, 16vw, 67px);
+        font-size: clamp(38px, 12vw, 52px);
         letter-spacing: .08em;
-        margin: 25px 0 17px
+        margin: 12px 0 10px
     }
 
     .hero-copy>.eyebrow {
         font-size: 12px;
-        gap: 10px;
-        letter-spacing: .18em
+        gap: 8px;
+        letter-spacing: .08em
     }
 
     .gold-line {
-        width: 23px
+        width: 20px
     }
 
     .hero-subtitle {
-        font-size: 14px;
-        letter-spacing: .14em
+        font-size: 13px;
+        line-height: 1.85;
+        letter-spacing: .08em
     }
 
     .hero-art {
         overflow: hidden;
         position: absolute;
         right: 0;
-        top: 54px;
-        width: 180px;
-        height: 220px;
+        top: 25px;
+        width: 150px;
+        height: 190px;
         opacity: .2;
-        z-index: 0
+        z-index: 0;
+        pointer-events: none
     }
 
     .hero-art .outer {
-        width: 190px;
-        height: 190px
+        width: 150px;
+        height: 150px
     }
 
     .hero-art .inner {
-        width: 160px;
-        height: 160px
+        width: 125px;
+        height: 125px
     }
 
     .sigil {
-        font-size: 110px
+        font-size: 90px
     }
 
     .art-caption,
@@ -1588,42 +1624,60 @@ dialog::backdrop {
     }
 
     .hero-actions {
-        margin-top: 29px;
-        gap: 10px
+        margin-top: 16px;
+        gap: 8px;
+        flex-wrap: nowrap
     }
 
     .primary {
-        font-size: 12px;
-        padding: 13px 19px;
-        gap: 24px;
-        min-height: 47px
+        font-size: 13px;
+        padding: 10px 14px;
+        gap: 14px;
+        min-height: 44px;
+        letter-spacing: .04em
+    }
+
+    .hero-actions .primary {
+        flex: 1
     }
 
     .hero-actions .secondary {
         font-size: 12px;
-        padding: 10px 14px
+        padding: 6px 10px;
+        letter-spacing: 0
+    }
+
+    .secondary small {
+        margin-top: 2px
     }
 
     .home-navigation {
-        gap: 10px 18px;
-        flex-wrap: wrap;
-        margin-top: 21px
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        margin-top: 8px
     }
 
     .home-navigation button {
-        font-size: 12px
+        min-height: 44px;
+        font-size: 12px;
+        letter-spacing: 0
+    }
+
+    .home-navigation span {
+        margin-left: 3px
     }
 
     .journey-strip {
-        margin-top: 35px;
-        grid-template-columns: 1fr 1fr;
-        padding: 8px 0;
+        margin-top: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0;
         gap: 0
     }
 
-    .journey-strip>div {
-        padding: 19px 20px !important;
-        min-height: 105px
+    .journey-strip>div,
+    .journey-strip>div:first-child {
+        padding: 12px 16px
     }
 
     .journey-strip>div:nth-child(2) {
@@ -1635,78 +1689,101 @@ dialog::backdrop {
     }
 
     .journey-strip strong {
-        font-size: 27px
+        font-size: 22px
     }
 
     .stat-label {
-        font-size: 12px
+        margin-bottom: 5px;
+        letter-spacing: .04em
+    }
+
+    .journey-strip>div>small {
+        margin-top: 3px
     }
 
     .world-notes {
-        gap: 11px;
-        font-size: 12px;
-        margin-top: 21px;
-        letter-spacing: .03em;
+        gap: 5px 8px;
+        margin-top: 0;
+        padding: 4px 8px;
+        letter-spacing: 0;
         flex-wrap: wrap
     }
 
     .world-notes button {
-        font-size: 12px
+        min-height: 44px
     }
 
     .game-page {
-        padding: 15px 17px 20px
+        height: 100%;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px
     }
 
     .section-heading {
-        margin-bottom: 20px;
-        align-items: flex-end
+        padding: 10px 12px;
+        margin-bottom: 0;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px
     }
 
     .section-heading h2 {
-        font-size: 27px;
-        margin-top: 10px
+        font-size: 22px;
+        margin-top: 3px;
+        letter-spacing: .04em
     }
 
     .section-heading .eyebrow {
-        font-size: 12px
+        letter-spacing: .1em
     }
 
     .game-heading-right {
         flex-direction: column;
         align-items: flex-end;
-        gap: 10px;
-        font-size: 12px
+        gap: 4px;
+        letter-spacing: 0
     }
 
     .compact {
-        font-size: 12px;
-        padding: 8px 12px
+        padding: 8px 12px;
+        min-height: 44px
     }
 
     .attributes {
-        grid-template-columns: repeat(2, 1fr)
+        flex-shrink: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-bottom: 0
     }
 
     .attribute {
-        padding: 16px
+        min-width: 0;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px
     }
 
     .attribute.age {
         grid-column: 1/-1;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        justify-content: flex-start;
         border-right: 0;
         border-bottom: 1px solid var(--border)
     }
 
     .attribute.age>span {
-        margin: 0 auto 0 0
+        margin-right: auto
     }
 
     .attribute.age strong {
-        font-size: 26px
+        font-size: 22px
+    }
+
+    .attribute.age>small {
+        margin-left: 0
     }
 
     .attribute:nth-child(3) {
@@ -1719,128 +1796,229 @@ dialog::backdrop {
     }
 
     .attribute strong {
-        font-size: 19px
+        font-size: 14px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: right
     }
 
     .attribute>span {
-        margin-bottom: 9px;
-        font-size: 12px
+        margin-bottom: 0;
+        letter-spacing: 0;
+        flex-shrink: 0
+    }
+
+    .chronicle {
+        flex: 1;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column
     }
 
     .chronicle-head {
-        padding: 13px 15px;
-        font-size: 12px
-    }
-
-    .chronicle-head span:last-child {
-        font-size: 12px
+        flex-shrink: 0;
+        padding: 9px 12px
     }
 
     .log-box {
-        padding: 9px 14px;
-        height: 340px
+        flex: 1;
+        min-height: 0;
+        height: auto;
+        padding: 6px 12px
     }
 
     .log-line {
-        font-size: 14px;
-        gap: 9px;
-        line-height: 2
+        font-size: 13px;
+        gap: 8px;
+        line-height: 1.75;
+        padding: 5px 0
     }
 
     .controls {
-        gap: 8px;
-        flex-wrap: wrap
+        flex-shrink: 0;
+        padding: 6px 10px;
+        margin-top: 0;
+        gap: 4px 8px
     }
 
     .control-actions {
-        gap: 15px
+        gap: 12px;
+        margin-left: auto
+    }
+
+    .speed-control {
+        gap: 2px
     }
 
     .speed-control>span {
-        font-size: 12px;
-        margin-right: 4px
+        margin-right: 2px;
+        letter-spacing: 0
     }
 
     .speed-control button {
-        padding: 6px 10px
+        padding: 6px 8px;
+        min-width: 36px;
+        min-height: 44px
     }
 
-    .text-button {
-        font-size: 12px
+    .text-button,
+    .subtle-link {
+        min-height: 44px
     }
 
-    .talent-page {
-        padding-top: 30px
+    .talent-page,
+    .settlement {
+        width: calc(100% - 24px);
+        min-height: calc(100% - 24px);
+        margin: 12px auto;
+        padding: 18px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
     }
 
     .talent-page h2 {
-        font-size: 30px
+        margin: 10px 0 6px;
+        font-size: 26px
+    }
+
+    .talent-page .muted,
+    .settlement>.muted {
+        font-size: 13px
     }
 
     .talent-orb {
-        width: 280px;
-        height: 300px
+        width: clamp(130px, 26dvh, 210px);
+        height: clamp(130px, 26dvh, 210px);
+        flex-shrink: 0;
+        margin: 10px auto
     }
 
     .talent-orb>span {
-        font-size: 37px
+        font-size: 30px
     }
 
     .talent-description {
         max-width: 310px;
-        font-size: 14px
+        font-size: 13px;
+        line-height: 1.8;
+        min-height: 70px
+    }
+
+    .talent-page .gold {
+        min-height: 18px;
+        margin: 8px 0 14px
     }
 
     .settlement {
-        padding: 25px 18px
+        height: calc(100% - 24px);
+        min-height: 0
+    }
+
+    .settlement-details {
+        width: 100%;
+        min-height: 0;
+        overflow: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin
+    }
+
+    .settlement>.eyebrow,
+    .settlement>h1,
+    .settlement>.muted,
+    .settle-actions,
+    .settlement>.subtle-link {
+        flex-shrink: 0
     }
 
     .settlement h1 {
-        font-size: 35px
+        font-size: 28px;
+        margin-bottom: 6px
     }
 
     .settlement-symbol {
-        width: 63px;
-        height: 63px;
-        font-size: 30px;
-        margin-top: 22px
+        width: 46px;
+        height: 46px;
+        font-size: 24px;
+        flex-shrink: 0;
+        margin: 12px auto 8px
     }
 
     .settle-stats {
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 25px
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 0;
+        padding: 12px 0;
+        margin-top: 14px
     }
 
     .settle-stats>div:nth-child(2) {
         border-right: 0
     }
 
+    .settle-stats span {
+        margin-bottom: 4px
+    }
+
     .settle-stats strong {
-        font-size: 20px
+        font-size: 17px;
+        overflow-wrap: anywhere
     }
 
     .exp-line {
         gap: 7px;
-        flex-wrap: wrap;
-        font-size: 12px
+        padding: 10px 0;
+        flex-wrap: wrap
     }
 
     .exp-line>span {
-        font-size: 12px;
-        margin-left: 8px
+        margin-left: 4px
+    }
+
+    .new-achievements {
+        margin-bottom: 8px
+    }
+
+    .xinwu {
+        margin-top: 8px
+    }
+
+    .rank-form {
+        width: 100%;
+        padding: 10px;
+        margin: 4px auto 10px
+    }
+
+    .rank-form label {
+        margin-bottom: 6px
+    }
+
+    .rank-form input {
+        font-size: 16px
+    }
+
+    .rank-form>small {
+        margin-top: 4px
     }
 
     .settle-actions {
-        gap: 12px
+        gap: 8px 12px;
+        margin: 8px 0 0
     }
 
     .settle-actions .secondary {
         font-size: 12px;
-        padding: 13px
+        min-height: 44px;
+        padding: 10px 12px
+    }
+
+    dialog {
+        max-height: 90dvh
     }
 
     .modal-head {
-        padding: 22px 20px 17px
+        padding: 14px 16px 10px
     }
 
     .modal-head h2 {
@@ -1852,7 +2030,7 @@ dialog::backdrop {
     }
 
     #modal-body {
-        padding: 18px 20px 24px
+        padding: 12px 16px 18px
     }
 
     .achievement-grid {
@@ -1919,6 +2097,23 @@ dialog::backdrop {
         height: 60%;
         width: 180%;
         left: -40%
+    }
+}
+
+@media(max-width:640px) and (max-height:700px) {
+    .home-page {
+        padding-top: 18px;
+        gap: 12px
+    }
+
+    .journey-strip>div,
+    .journey-strip>div:first-child {
+        padding: 8px 12px
+    }
+
+    .talent-orb {
+        width: clamp(100px, 22dvh, 180px);
+        height: clamp(100px, 22dvh, 180px)
     }
 }
 
