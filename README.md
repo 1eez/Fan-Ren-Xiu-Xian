@@ -19,7 +19,27 @@ npm run build  # TypeScript检查及生产构建
 npm run preview
 ```
 
-构建结果为 `dist/`，可部署到静态网站托管服务。当前没有后端，也不需要 API Key。
+构建结果在 `dist/`，可部署到宝塔等静态网站托管服务：
+
+1. 执行 `npm run build`。
+2. 将 `dist/` **里面的所有文件和文件夹**上传到网站根目录（例如 `/www/wwwroot/Fan_Ren_Xiu_Xian`），不要额外套一层 `dist`。
+3. 确认宝塔的网站根目录指向该目录，然后访问绑定的域名。
+
+部署后的目录结构如下，背景图和 `seal.svg` 也需要上传：
+
+```text
+Fan_Ren_Xiu_Xian/
+├── index.html
+├── seal.svg
+├── assets/
+│   ├── index-<构建生成的名称>.js
+│   └── index-<构建生成的名称>.css
+└── backgrounds/
+    ├── landscape-desktop.png
+    └── landscape-mobile.png
+```
+
+当前没有后端，也不需要 API Key。
 
 ## 技术与升级
 
